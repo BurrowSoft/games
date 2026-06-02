@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { GameCard } from "@/components/GameCard";
 import type { EnrichedGame } from "@/lib/types";
 
@@ -11,6 +12,7 @@ interface ProviderStatus {
 }
 
 function LoadingOverlay({ providers, visible }: { providers: ProviderStatus[]; visible: boolean }) {
+  const t = useTranslations("games");
   return (
     <div
       className={`fixed inset-0 z-40 flex items-center justify-center bg-[#0d0d14]/90 backdrop-blur-sm transition-opacity duration-500 ${visible ? "opacity-100" : "pointer-events-none opacity-0"}`}
@@ -18,7 +20,7 @@ function LoadingOverlay({ providers, visible }: { providers: ProviderStatus[]; v
       <div className="w-80 rounded-2xl border border-white/10 bg-gray-900 p-6 shadow-2xl">
         <div className="mb-4 flex items-center gap-2">
           <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-          <span className="text-sm font-semibold text-white">Loading rankings…</span>
+          <span className="text-sm font-semibold text-white">{t("loadingTitle")}</span>
         </div>
         <ul className="space-y-3">
           {providers.map((p) => (
@@ -42,10 +44,10 @@ function LoadingOverlay({ providers, visible }: { providers: ProviderStatus[]; v
                 )}
               </span>
               <span className={`text-sm ${p.done ? (p.error ? "text-yellow-400" : "text-gray-300") : "text-gray-500"}`}>
-                {p.error ? `${p.label} unavailable` : `Loading ${p.label} data…`}
-                {p.done && !p.error && (
-                  <span className="ml-1 text-emerald-400">✓</span>
-                )}
+                {p.done && p.error
+                  ? t("unavailable", { provider: p.label })
+                  : t("loading", { provider: p.label })}
+                {p.done && !p.error && <span className="ml-1 text-emerald-400">✓</span>}
               </span>
             </li>
           ))}
@@ -56,6 +58,7 @@ function LoadingOverlay({ providers, visible }: { providers: ProviderStatus[]; v
 }
 
 export function GamesGrid() {
+  const t = useTranslations("games");
   const [games, setGames] = useState<EnrichedGame[]>([]);
   const [overlayVisible, setOverlayVisible] = useState(true);
   const [providers, setProviders] = useState<ProviderStatus[]>([
@@ -65,20 +68,16 @@ export function GamesGrid() {
 
   useEffect(() => {
     async function load() {
-      // Phase 1: Twitch data
       let twitchGames: EnrichedGame[] = [];
       try {
         const res = await fetch("/api/games");
-        twitchGames = await res.json() as EnrichedGame[];
+        twitchGames = (await res.json()) as EnrichedGame[];
         setGames(twitchGames);
       } catch {
         // leave games empty
       }
-      setProviders((prev) =>
-        prev.map((p) => (p.label === "Twitch" ? { ...p, done: true } : p))
-      );
+      setProviders((prev) => prev.map((p) => (p.label === "Twitch" ? { ...p, done: true } : p)));
 
-      // Phase 2: IGDB enrichment (concurrent with Twitch render)
       if (twitchGames.length > 0) {
         try {
           const res = await fetch("/api/igdb", {
@@ -86,7 +85,6 @@ export function GamesGrid() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ igdbIds: twitchGames.map((g) => g.igdbId) }),
           });
-
           if (!res.ok) throw new Error("IGDB error");
 
           const igdbData = (await res.json()) as Array<{
@@ -98,7 +96,6 @@ export function GamesGrid() {
           }>;
 
           const igdbById = new Map(igdbData.map((g) => [g.igdbId, g]));
-
           setGames((prev) =>
             prev.map((game) => {
               const match = igdbById.get(game.igdbId);
@@ -112,21 +109,14 @@ export function GamesGrid() {
               };
             })
           );
-          setProviders((prev) =>
-            prev.map((p) => (p.label === "IGDB" ? { ...p, done: true } : p))
-          );
+          setProviders((prev) => prev.map((p) => (p.label === "IGDB" ? { ...p, done: true } : p)));
         } catch {
-          setProviders((prev) =>
-            prev.map((p) => (p.label === "IGDB" ? { ...p, done: true, error: true } : p))
-          );
+          setProviders((prev) => prev.map((p) => (p.label === "IGDB" ? { ...p, done: true, error: true } : p)));
         }
       } else {
-        setProviders((prev) =>
-          prev.map((p) => (p.label === "IGDB" ? { ...p, done: true } : p))
-        );
+        setProviders((prev) => prev.map((p) => (p.label === "IGDB" ? { ...p, done: true } : p)));
       }
 
-      // Fade overlay out after a brief pause so the user sees both checkmarks
       setTimeout(() => setOverlayVisible(false), 600);
     }
 
@@ -141,7 +131,7 @@ export function GamesGrid() {
 
       {games.length === 0 && allDone ? (
         <div className="flex min-h-64 items-center justify-center rounded-xl border border-dashed border-gray-800 text-gray-600">
-          Could not load game rankings right now. Check back in a moment.
+          {t("noResults")}
         </div>
       ) : (
         <>
@@ -152,14 +142,10 @@ export function GamesGrid() {
           </div>
 
           {providers.find((p) => p.label === "IGDB")?.error && (
-            <p className="mt-4 text-center text-xs text-gray-700">
-              IGDB details unavailable — showing Twitch data only.
-            </p>
+            <p className="mt-4 text-center text-xs text-gray-700">{t("igdbUnavailable")}</p>
           )}
 
-          <p className="mt-6 text-center text-xs text-gray-700">
-            Rankings based on live viewer data from Twitch. Click any game to see details.
-          </p>
+          <p className="mt-6 text-center text-xs text-gray-700">{t("rankingsNote")}</p>
         </>
       )}
     </>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { formatViewers } from "@/lib/twitch";
 import type { EnrichedGame } from "@/lib/types";
 
@@ -22,6 +23,7 @@ function RatingStars({ rating }: { rating: number }) {
 }
 
 export function GameCard({ game }: { game: EnrichedGame }) {
+  const t = useTranslations("games");
   const art = game.coverUrl ?? game.boxArtUrl;
   const twitchUrl = `https://www.twitch.tv/directory/game/${encodeURIComponent(game.name)}`;
 
@@ -45,7 +47,7 @@ export function GameCard({ game }: { game: EnrichedGame }) {
         {game.liveViewers > 0 && (
           <div className="absolute bottom-2 left-2 flex items-center gap-1.5 rounded-full bg-black/75 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm">
             <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-red-500" />
-            {formatViewers(game.liveViewers)} watching
+            {t("viewers", { count: formatViewers(game.liveViewers) })}
           </div>
         )}
       </Link>
@@ -78,7 +80,7 @@ export function GameCard({ game }: { game: EnrichedGame }) {
           <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
             <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z" />
           </svg>
-          Watch on Twitch
+          {t("watchOnTwitch")}
         </a>
       </div>
     </div>

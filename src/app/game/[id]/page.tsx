@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { formatViewers } from "@/lib/twitch";
 import type { GameDetail } from "@/lib/types";
 
@@ -11,10 +12,7 @@ function RatingBar({ rating }: { rating: number }) {
   return (
     <div className="flex items-center gap-2">
       <div className="h-2 w-32 rounded-full bg-gray-800">
-        <div
-          className="h-2 rounded-full bg-emerald-500 transition-all"
-          style={{ width: `${rating}%` }}
-        />
+        <div className="h-2 rounded-full bg-emerald-500 transition-all" style={{ width: `${rating}%` }} />
       </div>
       <span className="text-sm font-semibold text-emerald-400">{rating}/100</span>
     </div>
@@ -23,6 +21,7 @@ function RatingBar({ rating }: { rating: number }) {
 
 export default function GameDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const t = useTranslations("games");
   const [game, setGame] = useState<GameDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeScreenshot, setActiveScreenshot] = useState(0);
@@ -49,9 +48,9 @@ export default function GameDetailPage() {
   if (!game) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
-        <p className="text-gray-500">Game not found.</p>
+        <p className="text-gray-500">{t("gameNotFound")}</p>
         <Link href="/" className="text-emerald-400 hover:text-emerald-300 text-sm">
-          ← Back to rankings
+          {t("backToRankings")}
         </Link>
       </div>
     );
@@ -63,7 +62,7 @@ export default function GameDetailPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">
       <Link href="/" className="mb-8 inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-emerald-400 transition-colors">
-        ← Back to rankings
+        {t("backToRankings")}
       </Link>
 
       {/* Hero */}
@@ -90,7 +89,10 @@ export default function GameDetailPage() {
           )}
 
           {game.summary && (
-            <p className="max-w-xl text-sm leading-relaxed text-gray-400">{game.summary}</p>
+            <div>
+              <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-gray-600">{t("about")}</p>
+              <p className="max-w-xl text-sm leading-relaxed text-gray-400">{game.summary}</p>
+            </div>
           )}
 
           <div className="flex flex-wrap gap-3 pt-2">
@@ -103,7 +105,7 @@ export default function GameDetailPage() {
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z" />
               </svg>
-              Watch on Twitch
+              {t("watchOnTwitch")}
             </a>
           </div>
         </div>
@@ -112,7 +114,7 @@ export default function GameDetailPage() {
       {/* Screenshots */}
       {game.screenshots.length > 0 && (
         <section className="mt-14">
-          <h2 className="mb-4 text-lg font-bold text-white">Screenshots</h2>
+          <h2 className="mb-4 text-lg font-bold text-white">{t("screenshots")}</h2>
           <div className="relative overflow-hidden rounded-xl border border-white/5">
             <Image
               src={game.screenshots[activeScreenshot]}
@@ -143,10 +145,10 @@ export default function GameDetailPage() {
       {game.streams.length > 0 && (
         <section className="mt-14">
           <h2 className="mb-4 text-lg font-bold text-white">
-            Live Now{" "}
+            {t("liveNow")}{" "}
             <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-red-500/10 px-2 py-0.5 text-xs font-medium text-red-400 ring-1 ring-red-500/20">
               <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-red-500" />
-              {game.streams.length} streams
+              {t("streams", { count: game.streams.length })}
             </span>
           </h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -177,7 +179,7 @@ export default function GameDetailPage() {
                   </p>
                   <p className="mt-0.5 line-clamp-1 text-xs text-gray-500">{stream.title}</p>
                   <span className="mt-2 inline-flex items-center gap-1 text-xs text-purple-400 font-medium">
-                    Watch stream →
+                    {t("watchStream")}
                   </span>
                 </div>
               </a>

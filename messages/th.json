@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "GamesMole",
+    "search": "ค้นหาเกม…",
+    "live": "สด"
+  },
+  "hero": {
+    "badge": "อันดับสด · อัปเดตทุก 5 นาที",
+    "title": "<em>เกมยอดนิยม</em>ตอนนี้",
+    "subtitle": "อันดับเกมสดจาก Twitch อัปเดตทุก 5 นาที"
+  },
+  "games": {
+    "viewers": "{count} ผู้ชม",
+    "watchOnTwitch": "ดูบน Twitch",
+    "watchStream": "ดูสตรีม →",
+    "liveNow": "ถ่ายทอดสดตอนนี้",
+    "loadingTitle": "กำลังโหลดอันดับ…",
+    "loading": "กำลังโหลดเกมจาก {provider}…",
+    "unavailable": "{provider} ไม่พร้อมใช้งาน",
+    "igdbUnavailable": "IGDB ไม่พร้อมใช้งาน — แสดงข้อมูลจาก Twitch เท่านั้น",
+    "noResults": "ไม่สามารถโหลดอันดับเกมได้ กรุณาลองใหม่อีกครั้ง",
+    "rankingsNote": "อันดับตามจำนวนผู้ชมสดบน Twitch คลิกที่เกมเพื่อดูรายละเอียด",
+    "rating": "คะแนน",
+    "genres": "ประเภทเกม",
+    "screenshots": "ภาพหน้าจอ",
+    "backToRankings": "← กลับสู่อันดับ",
+    "streams": "{count} สตรีม",
+    "gameNotFound": "ไม่พบเกม",
+    "about": "เกี่ยวกับเกมนี้"
+  },
+  "footer": {
+    "poweredBy": "ข้อมูลเกมโดย"
+  },
+  "notFound": {
+    "title": "เกมโอเวอร์",
+    "message": "ไม่พบหน้านี้ — การเลือกด่านล้มเหลว",
+    "back": "กลับสู่อันดับ"
+  }
+}

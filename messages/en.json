@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "GamesMole",
+    "search": "Search games…",
+    "live": "Live"
+  },
+  "hero": {
+    "badge": "Live rankings · refreshed every 5 minutes",
+    "title": "What's <em>Hot</em> Right Now",
+    "subtitle": "Live game rankings updated every 5 minutes from Twitch"
+  },
+  "games": {
+    "viewers": "{count} watching",
+    "watchOnTwitch": "Watch on Twitch",
+    "watchStream": "Watch stream →",
+    "liveNow": "Live Now",
+    "loadingTitle": "Loading rankings…",
+    "loading": "Loading {provider} data…",
+    "unavailable": "{provider} unavailable",
+    "igdbUnavailable": "IGDB details unavailable — showing Twitch data only.",
+    "noResults": "Could not load game rankings right now. Check back in a moment.",
+    "rankingsNote": "Rankings based on live viewer data from Twitch. Click any game to see details.",
+    "rating": "Rating",
+    "genres": "Genres",
+    "screenshots": "Screenshots",
+    "backToRankings": "← Back to rankings",
+    "streams": "{count} streams",
+    "gameNotFound": "Game not found.",
+    "about": "About this game"
+  },
+  "footer": {
+    "poweredBy": "Game data powered by"
+  },
+  "notFound": {
+    "title": "Game Over",
+    "message": "This page doesn't exist — level select failed.",
+    "back": "Back to Rankings"
+  }
+}
