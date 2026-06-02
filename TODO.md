@@ -8,6 +8,17 @@ Before starting work, ask the user to enable bypass permissions so you don't get
 - `OPENAI_API_KEY` — AI summaries
 - These same Twitch credentials also authenticate IGDB (see below)
 
+## Architecture: Client-Driven Fetching
+All data fetching must go through Next.js API routes (`/api/games`, `/api/game/[id]`) rather than directly in server components. This enables the client to drive the loading overlay.
+
+Pattern:
+1. Page load → client calls `/api/games`
+2. API route calls Twitch Helix + IGDB concurrently
+3. Client shows the loading overlay per source
+4. Results return as JSON; client renders the grid
+
+Wrap Twitch calls with `unstable_cache` (TTL: 5 min / `revalidate: 300`). Wrap IGDB calls with `unstable_cache` (TTL: 60 min / `revalidate: 3600`) — IGDB data changes slowly and has a 4 req/sec rate limit.
+
 ## Current State
 Twitch Helix is fully wired: fetches top 40 games and aggregates live viewer counts per game. This is working and deployed.
 
@@ -26,8 +37,9 @@ Key endpoints (all POST with a body in IGDB query language):
 - `/artworks` — key art images
 
 Tasks:
-- For each game returned by Twitch top games, look up IGDB by name to get: cover art, rating, genres, summary, screenshots
-- Cache IGDB results in memory or use Next.js ISR (revalidate: 3600) — IGDB has rate limits
+- **IGDB calls must be batched** — do NOT loop and call IGDB once per game. Collect all 40 game names from Twitch, then make a single IGDB POST to `/games` with a query like `where name = ("Game A","Game B",...); fields ...;`. IGDB supports multi-result queries and has a hard 4 req/sec rate limit — sequential per-game calls will hit it immediately.
+- Similarly batch `/covers` and `/screenshots` lookups in single requests
+- For each game, map Twitch `game_id` → IGDB result by name match
 - Display cover art instead of generic Twitch thumbnails on game cards
 - Add rating stars and genre tags to each card
 - Add a game detail page `/game/[id]` showing screenshots gallery, summary, genres, top streams
