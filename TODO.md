@@ -70,7 +70,23 @@ Every game card and the game detail page must have clear CTA buttons. Requiremen
 - If IGDB provides a Steam or store URL, add a "View on Steam" / "View on [Store]" button
 - All external links: `target="_blank" rel="noopener noreferrer"`
 
-### 6. GitHub + Vercel setup
+### 6. Themed mascot — GamesMole
+Create `public/mascot.svg` — the base BurrowSoft Mole with a game controller held in front, paws gripping both handles (visible above the ledge). Controller should have a D-pad on the left and four face buttons on the right, drawn in the same black line-art stroke style. SVG groups: `<g id="mole-base">` and `<g id="prop">`. ViewBox: `0 0 200 220`.
+
+### 7. App thumbnail / OG image
+- `public/og-image.png` — 1200×630px, GamesMole mascot centred on brand background, "GamesMole" wordmark below
+- `public/favicon.ico` — mole head only, 32×32 and 16×16
+- `public/apple-touch-icon.png` — 180×180px
+- Wire all into `src/app/layout.tsx` metadata
+
+### 8. Footer — BurrowSoft branding
+Add to the existing footer:
+- Small BurrowSoft logo (mole + wordmark) linking to burrowsoft.com
+- Links to sibling products: FlyMole, BookingMole, InsightMole, RentACarMole, ShoppingMole
+- Copyright: "© 2025 BurrowSoft. All rights reserved."
+Logo assets: copy `burrowsoft-logo.svg` from the main-website repo into `public/`.
+
+### 9. GitHub + Vercel setup
 Per CLAUDE.md: GamesMole needs a GitHub repo and Vercel project created.
 - Create GitHub repo: `burrowsoft/games`
 - Create Vercel project linked to that repo

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" role="img" aria-label="GamesMole mascot">
+  <g id="mole-base" fill="white" stroke="#1e2d3d" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Crown puffs -->
+    <circle cx="91" cy="28" r="5" stroke-width="2.5"/>
+    <circle cx="100" cy="22" r="6" stroke-width="2.5"/>
+    <circle cx="109" cy="28" r="5" stroke-width="2.5"/>
+    <!-- Head -->
+    <circle cx="100" cy="83" r="57" stroke-width="3.5"/>
+    <!-- Left lens -->
+    <circle cx="81" cy="89" r="19" stroke-width="4"/>
+    <!-- Right lens -->
+    <circle cx="119" cy="89" r="19" stroke-width="4"/>
+    <!-- Bridge -->
+    <line x1="100" y1="87" x2="100" y2="92" stroke-width="3"/>
+    <!-- Temple arms -->
+    <line x1="62" y1="89" x2="55" y2="89" stroke-width="3"/>
+    <line x1="138" y1="89" x2="145" y2="89" stroke-width="3"/>
+    <!-- Left pupil -->
+    <circle cx="81" cy="89" r="9" fill="#1e2d3d" stroke="none"/>
+    <circle cx="84" cy="86" r="3.5" fill="white" stroke="none"/>
+    <!-- Right pupil -->
+    <circle cx="119" cy="89" r="9" fill="#1e2d3d" stroke="none"/>
+    <circle cx="122" cy="86" r="3.5" fill="white" stroke="none"/>
+    <!-- Nose -->
+    <ellipse cx="100" cy="113" rx="6" ry="4.5" fill="#1e2d3d" stroke="none"/>
+    <!-- Ledge -->
+    <rect x="20" y="130" width="160" height="18" rx="7" stroke-width="3.5"/>
+    <!-- Left paw -->
+    <ellipse cx="55" cy="130" rx="20" ry="11" stroke-width="3"/>
+    <!-- Right paw -->
+    <ellipse cx="145" cy="130" rx="20" ry="11" stroke-width="3"/>
+  </g>
+
+  <g id="prop" fill="white" stroke="#1e2d3d" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Game controller body -->
+    <rect x="38" y="152" width="124" height="46" rx="16" stroke-width="2.5"/>
+    <!-- Left handle -->
+    <ellipse cx="55" cy="198" rx="18" ry="14" stroke-width="2.5"/>
+    <!-- Right handle -->
+    <ellipse cx="145" cy="198" rx="18" ry="14" stroke-width="2.5"/>
+    <!-- D-pad vertical -->
+    <rect x="63" y="163" width="6" height="18" rx="2" fill="#1e2d3d" stroke="none"/>
+    <!-- D-pad horizontal -->
+    <rect x="57" y="169" width="18" height="6" rx="2" fill="#1e2d3d" stroke="none"/>
+    <!-- Face buttons (ABXY layout) -->
+    <circle cx="128" cy="167" r="5" stroke-width="2"/>
+    <circle cx="138" cy="174" r="5" stroke-width="2"/>
+    <circle cx="118" cy="174" r="5" stroke-width="2"/>
+    <circle cx="128" cy="181" r="5" stroke-width="2"/>
+    <!-- Centre buttons -->
+    <rect x="91" y="170" width="8" height="5" rx="2.5" fill="#1e2d3d" stroke="none"/>
+    <rect x="101" y="170" width="8" height="5" rx="2.5" fill="#1e2d3d" stroke="none"/>
+    <!-- Left thumbstick -->
+    <circle cx="70" cy="192" r="7" stroke-width="2"/>
+    <!-- Right thumbstick -->
+    <circle cx="130" cy="192" r="7" stroke-width="2"/>
+  </g>
+</svg>
