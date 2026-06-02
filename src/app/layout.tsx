@@ -8,6 +8,7 @@ import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { Analytics } from "@vercel/analytics/next";
 import { SearchBar } from "@/components/SearchBar";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { LazadaBanner } from "@/components/LazadaBanner";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
@@ -160,6 +161,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             </div>
           </footer>
 
+          <LazadaBanner />
           <Analytics />
         </NextIntlClientProvider>
       </body>
