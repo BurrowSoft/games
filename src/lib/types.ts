@@ -1,5 +1,6 @@
 export interface EnrichedGame {
   twitchId: string;
+  igdbId: string;
   name: string;
   rank: number;
   liveViewers: number;

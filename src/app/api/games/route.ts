@@ -8,6 +8,7 @@ export async function GET() {
     const games = await getTopGamesWithViewers(40);
     const payload = games.map((g) => ({
       twitchId: g.id,
+      igdbId: g.igdb_id,
       name: g.name,
       rank: g.rank,
       liveViewers: g.liveViewers,

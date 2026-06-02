@@ -84,24 +84,24 @@ export function GamesGrid() {
           const res = await fetch("/api/igdb", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ names: twitchGames.map((g) => g.name) }),
+            body: JSON.stringify({ igdbIds: twitchGames.map((g) => g.igdbId) }),
           });
 
           if (!res.ok) throw new Error("IGDB error");
 
           const igdbData = (await res.json()) as Array<{
-            name: string;
+            igdbId: string;
             rating?: number;
             coverUrl?: string;
             genres?: string[];
             summary?: string;
           }>;
 
-          const igdbByName = new Map(igdbData.map((g) => [g.name.toLowerCase(), g]));
+          const igdbById = new Map(igdbData.map((g) => [g.igdbId, g]));
 
           setGames((prev) =>
             prev.map((game) => {
-              const match = igdbByName.get(game.name.toLowerCase());
+              const match = igdbById.get(game.igdbId);
               if (!match) return game;
               return {
                 ...game,

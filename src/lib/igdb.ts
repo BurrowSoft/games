@@ -39,6 +39,16 @@ async function igdbPost<T>(
   return res.json() as Promise<T>;
 }
 
+export async function getGamesByIds(
+  ids: number[],
+  token: string,
+  clientId: string
+): Promise<IGDBGame[]> {
+  if (ids.length === 0) return [];
+  const body = `fields id,name,rating,summary,cover.image_id,genres.name,screenshots.image_id; where id = (${ids.join(",")}); limit ${Math.min(ids.length, 100)};`;
+  return igdbPost<IGDBGame[]>("/games", body, token, clientId, 3600);
+}
+
 export async function getGamesByNames(
   names: string[],
   token: string,
@@ -46,7 +56,7 @@ export async function getGamesByNames(
 ): Promise<IGDBGame[]> {
   if (names.length === 0) return [];
   const escaped = names.map((n) => `"${n.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`).join(",");
-  const body = `fields name,rating,summary,cover.image_id,genres.name,screenshots.image_id; where name = (${escaped}); limit ${Math.min(names.length, 100)};`;
+  const body = `fields id,name,rating,summary,cover.image_id,genres.name,screenshots.image_id; where name = (${escaped}); limit ${Math.min(names.length, 100)};`;
   return igdbPost<IGDBGame[]>("/games", body, token, clientId, 3600);
 }
 
