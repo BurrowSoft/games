@@ -1,11 +1,16 @@
 import { getTopGamesWithViewers } from "@/lib/twitch";
 import { GameCard } from "@/components/GameCard";
+import { AdUnit } from "@/components/AdUnit";
 import { SITE_DESCRIPTION } from "@/lib/seo";
 
 export const revalidate = 300;
 
 export default async function HomePage() {
   const games = await getTopGamesWithViewers(40);
+
+  const firstSlice = games.slice(0, 10);
+  const secondSlice = games.slice(10, 25);
+  const thirdSlice = games.slice(25);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">
@@ -24,17 +29,45 @@ export default async function HomePage() {
         <p className="mt-3 max-w-2xl text-base text-gray-400">{SITE_DESCRIPTION}</p>
       </div>
 
+      {/* Top leaderboard ad */}
+      <AdUnit slot="1234567890" format="horizontal" className="mb-8 rounded-xl overflow-hidden" />
+
       {games.length === 0 ? (
         <div className="flex min-h-64 items-center justify-center rounded-xl border border-dashed border-gray-800 text-gray-600">
           Could not load game rankings right now. Check back in a moment.
         </div>
       ) : (
         <>
+          {/* Top 10 games */}
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {games.map((game) => (
+            {firstSlice.map((game) => (
               <GameCard key={game.id} game={game} />
             ))}
           </div>
+
+          {/* Mid-page rectangle ad */}
+          <AdUnit slot="0987654321" format="rectangle" className="my-8 mx-auto max-w-xl rounded-xl overflow-hidden" />
+
+          {/* Games 11–25 */}
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            {secondSlice.map((game) => (
+              <GameCard key={game.id} game={game} />
+            ))}
+          </div>
+
+          {/* Second mid-page ad */}
+          {thirdSlice.length > 0 && (
+            <AdUnit slot="1122334455" format="horizontal" className="my-8 rounded-xl overflow-hidden" />
+          )}
+
+          {/* Remaining games */}
+          {thirdSlice.length > 0 && (
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+              {thirdSlice.map((game) => (
+                <GameCard key={game.id} game={game} />
+              ))}
+            </div>
+          )}
 
           <p className="mt-8 text-center text-xs text-gray-700">
             Rankings based on live viewer data from Twitch. Click any game to watch streams.
