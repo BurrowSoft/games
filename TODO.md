@@ -43,7 +43,22 @@ Twitch Helix returns `thumbnail_url` for each stream with `{width}` and `{height
 - Search IGDB `/games` endpoint and display results with cover art + rating
 - Link to game detail page
 
-### 4. GitHub + Vercel setup
+### 4. Loading overlay — show while APIs are fetching
+The games listing page must show a loading overlay while Twitch and IGDB calls are in flight. Requirements:
+- Two concurrent sources; overlay shows: "Loading games from Twitch…" / "Loading details from IGDB…"
+- As each resolves, its line gets a checkmark and the grid populates
+- If IGDB fails, fall back to Twitch thumbnail — show "IGDB unavailable" in muted text, never a hard error
+- Implement as a client component (`<GamesLoadingOverlay providers={string[]} />`)
+- Overlay fades out once both sources have settled
+
+### 5. Provider redirect buttons
+Every game card and the game detail page must have clear CTA buttons. Requirements:
+- "Watch on Twitch" button — links to `https://www.twitch.tv/directory/game/<game_name>` in a new tab
+- On the detail page, each live stream listed must have a "Watch stream" button linking to `https://www.twitch.tv/<streamer_login>`
+- If IGDB provides a Steam or store URL, add a "View on Steam" / "View on [Store]" button
+- All external links: `target="_blank" rel="noopener noreferrer"`
+
+### 6. GitHub + Vercel setup
 Per CLAUDE.md: GamesMole needs a GitHub repo and Vercel project created.
 - Create GitHub repo: `burrowsoft/games`
 - Create Vercel project linked to that repo
