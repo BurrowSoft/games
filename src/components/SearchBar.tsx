@@ -2,9 +2,11 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import type { SearchResult } from "@/lib/types";
 
 export function SearchBar() {
+  const t = useTranslations("games");
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [open, setOpen] = useState(false);
@@ -67,7 +69,7 @@ export function SearchBar() {
           value={query}
           onChange={(e) => handleChange(e.target.value)}
           onFocus={() => results.length > 0 && setOpen(true)}
-          placeholder="Search games…"
+          placeholder={t("search")}
           className="w-full rounded-lg border border-white/10 bg-gray-900 py-1.5 pl-9 pr-4 text-sm text-white placeholder-gray-600 outline-none focus:border-emerald-500/60 focus:ring-1 focus:ring-emerald-500/40"
         />
       </div>

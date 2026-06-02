@@ -7,7 +7,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { Analytics } from "@vercel/analytics/next";
 import { SearchBar } from "@/components/SearchBar";
-import { LanguageSelector } from "@/components/LanguageSelector";
+import { LanguageSelector } from "@burrowsoft/shared";
 import { LazadaBanner } from "@/components/LazadaBanner";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/lib/seo";
 import "./globals.css";
@@ -106,7 +106,10 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                 <SearchBar />
               </div>
 
-              <LanguageSelector />
+              <LanguageSelector
+                locales={["en", "th"]}
+                className="border-white/10 bg-gray-900 text-gray-300 shadow-none focus:ring-emerald-500/40 focus:ring-offset-0"
+              />
 
               <div className="hidden items-center gap-2 text-xs text-gray-600 sm:flex shrink-0">
                 <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-red-500" />
