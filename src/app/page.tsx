@@ -1,12 +1,7 @@
-import { getTopGamesWithViewers } from "@/lib/twitch";
-import { GameCard } from "@/components/GameCard";
+import { GamesGrid } from "@/components/GamesGrid";
 import { SITE_DESCRIPTION } from "@/lib/seo";
 
-export const revalidate = 300;
-
-export default async function HomePage() {
-  const games = await getTopGamesWithViewers(40);
-
+export default function HomePage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">
       <div className="mb-10">
@@ -24,23 +19,7 @@ export default async function HomePage() {
         <p className="mt-3 max-w-2xl text-base text-gray-400">{SITE_DESCRIPTION}</p>
       </div>
 
-      {games.length === 0 ? (
-        <div className="flex min-h-64 items-center justify-center rounded-xl border border-dashed border-gray-800 text-gray-600">
-          Could not load game rankings right now. Check back in a moment.
-        </div>
-      ) : (
-        <>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {games.map((game) => (
-              <GameCard key={game.id} game={game} />
-            ))}
-          </div>
-
-          <p className="mt-8 text-center text-xs text-gray-700">
-            Rankings based on live viewer data from Twitch. Click any game to watch streams.
-          </p>
-        </>
-      )}
+      <GamesGrid />
     </div>
   );
 }

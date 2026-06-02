@@ -8,9 +8,16 @@ export interface TwitchGame {
   igdb_id: string;
 }
 
-interface TwitchStream {
+export interface TwitchStream {
+  id: string;
+  user_login: string;
+  user_name: string;
   game_id: string;
+  game_name: string;
+  title: string;
   viewer_count: number;
+  thumbnail_url: string;
+  type: string;
 }
 
 export interface GameWithViewers extends TwitchGame {
@@ -18,7 +25,7 @@ export interface GameWithViewers extends TwitchGame {
   liveViewers: number;
 }
 
-async function getToken(): Promise<string> {
+export async function getToken(): Promise<string> {
   const clientId = process.env.TWITCH_CLIENT_ID;
   const clientSecret = process.env.TWITCH_CLIENT_SECRET;
   if (!clientId || !clientSecret) throw new Error("Missing Twitch credentials");
@@ -32,19 +39,23 @@ async function getToken(): Promise<string> {
   return json.access_token;
 }
 
-async function apiFetch<T>(path: string, token: string): Promise<T> {
+async function apiFetch<T>(path: string, token: string, revalidate = 300): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       "Client-Id": process.env.TWITCH_CLIENT_ID!,
     },
-    next: { revalidate: 300 },
+    next: { revalidate },
   });
   if (!res.ok) throw new Error(`Twitch API ${res.status}: ${path}`);
   return res.json() as Promise<T>;
 }
 
 export function boxArtUrl(url: string, w = 285, h = 380): string {
+  return url.replace("{width}", String(w)).replace("{height}", String(h));
+}
+
+export function streamThumbnailUrl(url: string, w = 440, h = 248): string {
   return url.replace("{width}", String(w)).replace("{height}", String(h));
 }
 
@@ -55,24 +66,34 @@ export function formatViewers(n: number): string {
 }
 
 export async function getTopGamesWithViewers(count = 40): Promise<GameWithViewers[]> {
-  try {
-    const token = await getToken();
-    const [gamesData, streamsData] = await Promise.all([
-      apiFetch<{ data: TwitchGame[] }>(`/games/top?first=${Math.min(count, 100)}`, token),
-      apiFetch<{ data: TwitchStream[] }>("/streams?first=100", token),
-    ]);
+  const token = await getToken();
+  const [gamesData, streamsData] = await Promise.all([
+    apiFetch<{ data: TwitchGame[] }>(`/games/top?first=${Math.min(count, 100)}`, token, 300),
+    apiFetch<{ data: TwitchStream[] }>("/streams?first=100", token, 300),
+  ]);
 
-    const viewersByGame = new Map<string, number>();
-    for (const s of streamsData.data) {
-      viewersByGame.set(s.game_id, (viewersByGame.get(s.game_id) ?? 0) + s.viewer_count);
-    }
-
-    return gamesData.data.map((game, i) => ({
-      ...game,
-      rank: i + 1,
-      liveViewers: viewersByGame.get(game.id) ?? 0,
-    }));
-  } catch {
-    return [];
+  const viewersByGame = new Map<string, number>();
+  for (const s of streamsData.data) {
+    viewersByGame.set(s.game_id, (viewersByGame.get(s.game_id) ?? 0) + s.viewer_count);
   }
+
+  return gamesData.data.map((game, i) => ({
+    ...game,
+    rank: i + 1,
+    liveViewers: viewersByGame.get(game.id) ?? 0,
+  }));
+}
+
+export async function getGameById(id: string, token: string): Promise<TwitchGame | null> {
+  const data = await apiFetch<{ data: TwitchGame[] }>(`/games?id=${id}`, token, 300);
+  return data.data[0] ?? null;
+}
+
+export async function getStreamsByGame(gameId: string, token: string): Promise<TwitchStream[]> {
+  const data = await apiFetch<{ data: TwitchStream[] }>(
+    `/streams?game_id=${gameId}&first=12`,
+    token,
+    300
+  );
+  return data.data;
 }

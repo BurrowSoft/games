@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Analytics } from "@vercel/analytics/next";
+import { SearchBar } from "@/components/SearchBar";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
@@ -22,11 +24,13 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: `${SITE_NAME} — Top Games Live Right Now`,
     description: SITE_DESCRIPTION,
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE_NAME} — Top Games Live Right Now`,
     description: SITE_DESCRIPTION,
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
@@ -47,6 +51,14 @@ export const viewport: Viewport = {
   themeColor: "#10b981",
 };
 
+const SIBLINGS = [
+  { name: "FlyMole", href: "https://flymole.com" },
+  { name: "BookingMole", href: "https://bookingmole.com" },
+  { name: "InsightMole", href: "https://insightmole.com" },
+  { name: "RentACarMole", href: "https://rentacarmole.com" },
+  { name: "ShoppingMole", href: "https://shoppingmole.com" },
+];
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
@@ -62,16 +74,24 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="min-h-screen bg-[#0d0d14] text-white antialiased">
         <header className="sticky top-0 z-50 border-b border-white/5 bg-[#0d0d14]/95 backdrop-blur">
           <nav
-            className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3"
+            className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3"
             aria-label="Main navigation"
           >
-            <Link href="/" className="flex items-center gap-2 text-xl font-bold text-emerald-400 hover:text-emerald-300 transition-colors">
+            <Link
+              href="/"
+              className="flex shrink-0 items-center gap-2 text-xl font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
+            >
               <span aria-hidden>🎮</span>
               {SITE_NAME}
             </Link>
-            <div className="flex items-center gap-2 text-xs text-gray-500">
+
+            <div className="flex-1">
+              <SearchBar />
+            </div>
+
+            <div className="hidden items-center gap-2 text-xs text-gray-600 sm:flex shrink-0">
               <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-red-500" />
-              Live data · updated every 5 min
+              Live
             </div>
           </nav>
         </header>
@@ -79,30 +99,71 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <main>{children}</main>
 
         <footer className="mt-20 border-t border-white/5">
-          <div className="mx-auto max-w-7xl px-4 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-600">
-            <p className="font-semibold text-emerald-500">{SITE_NAME}</p>
-            <p className="text-xs">
-              Game data powered by{" "}
+          <div className="mx-auto max-w-7xl px-4 py-10 space-y-8">
+            {/* Sibling products */}
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+              {SIBLINGS.map((s) => (
+                <a
+                  key={s.name}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-gray-600 hover:text-emerald-400 transition-colors"
+                >
+                  {s.name}
+                </a>
+              ))}
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-600 border-t border-white/5 pt-8">
+              {/* BurrowSoft branding */}
               <a
-                href="https://www.twitch.tv"
+                href="https://burrowsoft.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline hover:text-emerald-400 transition-colors"
+                className="flex items-center gap-2 hover:opacity-80 transition-opacity"
               >
-                Twitch
+                <Image
+                  src="/mascot.svg"
+                  alt="BurrowSoft"
+                  width={28}
+                  height={28}
+                  className="opacity-60"
+                />
+                <span className="text-xs font-semibold text-gray-500">BurrowSoft</span>
               </a>
-            </p>
-            <div className="flex items-center gap-6">
-              <a
-                href="mailto:support@gamesmole.com"
-                className="hover:text-emerald-400 transition-colors"
-              >
-                support@gamesmole.com
-              </a>
-              <p>© {new Date().getFullYear()} GamesMole</p>
+
+              <p className="text-xs">
+                Game data powered by{" "}
+                <a
+                  href="https://www.twitch.tv"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-emerald-400 transition-colors"
+                >
+                  Twitch
+                </a>{" "}
+                &amp;{" "}
+                <a
+                  href="https://www.igdb.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-emerald-400 transition-colors"
+                >
+                  IGDB
+                </a>
+              </p>
+
+              <div className="flex items-center gap-6 text-xs">
+                <a href="mailto:support@gamesmole.com" className="hover:text-emerald-400 transition-colors">
+                  support@gamesmole.com
+                </a>
+                <p>© {new Date().getFullYear()} BurrowSoft. All rights reserved.</p>
+              </div>
             </div>
           </div>
         </footer>
+
         <Analytics />
       </body>
     </html>
