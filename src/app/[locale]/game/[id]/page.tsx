@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { formatViewers } from "@/lib/twitch";
 import type { GameDetail } from "@/lib/types";
 
@@ -20,7 +20,7 @@ function RatingBar({ rating }: { rating: number }) {
 }
 
 export default function GameDetailPage() {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string; locale: string }>();
   const t = useTranslations("games");
   const [game, setGame] = useState<GameDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -65,7 +65,6 @@ export default function GameDetailPage() {
         {t("backToRankings")}
       </Link>
 
-      {/* Hero */}
       <div className="flex flex-col gap-8 md:flex-row">
         <div className="shrink-0">
           <div className="relative h-[380px] w-[285px] overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
@@ -75,33 +74,23 @@ export default function GameDetailPage() {
 
         <div className="flex flex-col justify-center gap-4">
           <h1 className="text-3xl font-extrabold text-white sm:text-4xl">{game.name}</h1>
-
           {game.rating != null && <RatingBar rating={game.rating} />}
-
           {game.genres && game.genres.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {game.genres.map((g) => (
-                <span key={g} className="rounded-full bg-gray-800 px-3 py-1 text-xs font-medium text-gray-300">
-                  {g}
-                </span>
+                <span key={g} className="rounded-full bg-gray-800 px-3 py-1 text-xs font-medium text-gray-300">{g}</span>
               ))}
             </div>
           )}
-
           {game.summary && (
             <div>
               <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-gray-600">{t("about")}</p>
               <p className="max-w-xl text-sm leading-relaxed text-gray-400">{game.summary}</p>
             </div>
           )}
-
           <div className="flex flex-wrap gap-3 pt-2">
-            <a
-              href={twitchUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-purple-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-purple-500 transition-colors"
-            >
+            <a href={twitchUrl} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg bg-purple-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-purple-500 transition-colors">
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z" />
               </svg>
@@ -111,28 +100,18 @@ export default function GameDetailPage() {
         </div>
       </div>
 
-      {/* Screenshots */}
       {game.screenshots.length > 0 && (
         <section className="mt-14">
           <h2 className="mb-4 text-lg font-bold text-white">{t("screenshots")}</h2>
           <div className="relative overflow-hidden rounded-xl border border-white/5">
-            <Image
-              src={game.screenshots[activeScreenshot]}
-              alt={`${game.name} screenshot ${activeScreenshot + 1}`}
-              width={880}
-              height={495}
-              className="w-full object-cover"
-              unoptimized
-            />
+            <Image src={game.screenshots[activeScreenshot]} alt={`${game.name} screenshot ${activeScreenshot + 1}`}
+              width={880} height={495} className="w-full object-cover" unoptimized />
           </div>
           {game.screenshots.length > 1 && (
             <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
               {game.screenshots.map((src, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveScreenshot(i)}
-                  className={`relative h-16 w-28 shrink-0 overflow-hidden rounded-lg border-2 transition-all ${i === activeScreenshot ? "border-emerald-500" : "border-transparent opacity-50 hover:opacity-75"}`}
-                >
+                <button key={i} onClick={() => setActiveScreenshot(i)}
+                  className={`relative h-16 w-28 shrink-0 overflow-hidden rounded-lg border-2 transition-all ${i === activeScreenshot ? "border-emerald-500" : "border-transparent opacity-50 hover:opacity-75"}`}>
                   <Image src={src} alt={`Thumbnail ${i + 1}`} fill className="object-cover" unoptimized />
                 </button>
               ))}
@@ -141,7 +120,6 @@ export default function GameDetailPage() {
         </section>
       )}
 
-      {/* Live streams */}
       {game.streams.length > 0 && (
         <section className="mt-14">
           <h2 className="mb-4 text-lg font-bold text-white">
@@ -153,34 +131,20 @@ export default function GameDetailPage() {
           </h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {game.streams.map((stream) => (
-              <a
-                key={stream.login}
-                href={`https://www.twitch.tv/${stream.login}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group overflow-hidden rounded-xl border border-white/5 bg-gray-900/60 transition-all hover:border-purple-500/50 hover:shadow-[0_0_20px_rgba(168,85,247,0.15)]"
-              >
+              <a key={stream.login} href={`https://www.twitch.tv/${stream.login}`} target="_blank" rel="noopener noreferrer"
+                className="group overflow-hidden rounded-xl border border-white/5 bg-gray-900/60 transition-all hover:border-purple-500/50 hover:shadow-[0_0_20px_rgba(168,85,247,0.15)]">
                 <div className="relative aspect-video overflow-hidden bg-gray-800">
-                  <Image
-                    src={stream.thumbnailUrl}
-                    alt={stream.title}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    unoptimized
-                  />
+                  <Image src={stream.thumbnailUrl} alt={stream.title} fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105" unoptimized />
                   <div className="absolute top-2 left-2 flex items-center gap-1.5 rounded-full bg-black/75 px-2.5 py-1 text-xs font-medium text-white">
                     <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-red-500" />
                     {formatViewers(stream.viewers)}
                   </div>
                 </div>
                 <div className="p-3">
-                  <p className="font-semibold text-sm text-white group-hover:text-purple-400 transition-colors">
-                    {stream.displayName}
-                  </p>
+                  <p className="font-semibold text-sm text-white group-hover:text-purple-400 transition-colors">{stream.displayName}</p>
                   <p className="mt-0.5 line-clamp-1 text-xs text-gray-500">{stream.title}</p>
-                  <span className="mt-2 inline-flex items-center gap-1 text-xs text-purple-400 font-medium">
-                    {t("watchStream")}
-                  </span>
+                  <span className="mt-2 inline-flex items-center gap-1 text-xs text-purple-400 font-medium">{t("watchStream")}</span>
                 </div>
               </a>
             ))}
