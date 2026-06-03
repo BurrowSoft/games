@@ -62,6 +62,26 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: ["/opengraph-image"],
   },
+  alternates: {
+    languages: {
+      "en": "https://www.gamesmole.com",
+      "th": "https://www.gamesmole.com",
+      "es": "https://www.gamesmole.com",
+      "ru": "https://www.gamesmole.com",
+      "pt-BR": "https://www.gamesmole.com",
+      "fr": "https://www.gamesmole.com",
+      "ja": "https://www.gamesmole.com",
+      "zh": "https://www.gamesmole.com",
+      "zh-TW": "https://www.gamesmole.com",
+      "ar": "https://www.gamesmole.com",
+      "de": "https://www.gamesmole.com",
+      "id": "https://www.gamesmole.com",
+      "ko": "https://www.gamesmole.com",
+      "it": "https://www.gamesmole.com",
+      "vi": "https://www.gamesmole.com",
+      "x-default": "https://www.gamesmole.com",
+    },
+  },
   robots: {
     index: true,
     follow: true,
@@ -79,6 +99,22 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: "#10b981",
+};
+
+const WEBSITE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "GamesMole",
+  "url": "https://www.gamesmole.com",
+  "description": "Live gaming rankings, trending games, and top Twitch streams worldwide.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://www.gamesmole.com/?q={game_name}",
+    },
+    "query-input": "required name=game_name",
+  },
 };
 
 const SIBLINGS = [
@@ -108,6 +144,10 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         )}
       </head>
       <body className="min-h-screen bg-[#0d0d14] text-white antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_SCHEMA) }}
+        />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <header className="sticky top-0 z-50 border-b border-white/5 bg-[#0d0d14]/95 backdrop-blur">
             <nav
