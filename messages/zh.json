@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "GamesMole",
+    "search": "搜索游戏…",
+    "live": "直播"
+  },
+  "hero": {
+    "badge": "实时排名 · 每5分钟更新",
+    "title": "当前<em>热门</em>游戏",
+    "subtitle": "来自Twitch的实时游戏排名，每5分钟更新一次"
+  },
+  "games": {
+    "viewers": "{count}人正在观看",
+    "watchOnTwitch": "在Twitch观看",
+    "watchStream": "观看直播 →",
+    "liveNow": "正在直播",
+    "loadingTitle": "加载排名中…",
+    "loading": "正在加载{provider}数据…",
+    "unavailable": "{provider}暂不可用",
+    "igdbUnavailable": "IGDB详情不可用 — 仅显示Twitch数据。",
+    "noResults": "暂时无法加载游戏排名，请稍后再试。",
+    "rankingsNote": "排名基于Twitch实时观众数据。点击任意游戏查看详情。",
+    "rating": "评分",
+    "genres": "类型",
+    "screenshots": "游戏截图",
+    "backToRankings": "← 返回排名",
+    "streams": "{count}个直播",
+    "gameNotFound": "未找到该游戏。",
+    "about": "关于这款游戏"
+  },
+  "footer": {
+    "poweredBy": "游戏数据来源："
+  },
+  "notFound": {
+    "title": "游戏结束",
+    "message": "此页面不存在 — 关卡选择失败。",
+    "back": "返回排名"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "GamesMole",
+    "search": "搜尋遊戲…",
+    "live": "直播"
+  },
+  "hero": {
+    "badge": "即時排行 · 每5分鐘更新",
+    "title": "目前<em>熱門</em>遊戲",
+    "subtitle": "來自Twitch的即時遊戲排行，每5分鐘更新一次"
+  },
+  "games": {
+    "viewers": "{count}人正在觀看",
+    "watchOnTwitch": "在Twitch觀看",
+    "watchStream": "觀看直播 →",
+    "liveNow": "正在直播",
+    "loadingTitle": "載入排行中…",
+    "loading": "正在載入{provider}資料…",
+    "unavailable": "{provider}暫時無法使用",
+    "igdbUnavailable": "IGDB詳情無法取得 — 僅顯示Twitch資料。",
+    "noResults": "暫時無法載入遊戲排行，請稍後再試。",
+    "rankingsNote": "排行基於Twitch即時觀眾資料。點擊任何遊戲查看詳情。",
+    "rating": "評分",
+    "genres": "類型",
+    "screenshots": "遊戲截圖",
+    "backToRankings": "← 返回排行",
+    "streams": "{count}個直播",
+    "gameNotFound": "找不到此遊戲。",
+    "about": "關於這款遊戲"
+  },
+  "footer": {
+    "poweredBy": "遊戲資料來源："
+  },
+  "notFound": {
+    "title": "遊戲結束",
+    "message": "此頁面不存在 — 關卡選擇失敗。",
+    "back": "返回排行"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "GamesMole",
+    "search": "게임 검색…",
+    "live": "라이브"
+  },
+  "hero": {
+    "badge": "실시간 랭킹 · 5분마다 업데이트",
+    "title": "지금 <em>인기</em> 있는 게임",
+    "subtitle": "Twitch에서 5분마다 업데이트되는 실시간 게임 랭킹"
+  },
+  "games": {
+    "viewers": "{count}명 시청 중",
+    "watchOnTwitch": "Twitch에서 시청",
+    "watchStream": "스트림 시청 →",
+    "liveNow": "지금 라이브",
+    "loadingTitle": "랭킹 불러오는 중…",
+    "loading": "{provider} 데이터 불러오는 중…",
+    "unavailable": "{provider} 사용 불가",
+    "igdbUnavailable": "IGDB 세부 정보를 사용할 수 없습니다 — Twitch 데이터만 표시합니다.",
+    "noResults": "현재 게임 랭킹을 불러올 수 없습니다. 잠시 후 다시 시도해 주세요.",
+    "rankingsNote": "Twitch 실시간 시청자 데이터를 기반으로 한 랭킹입니다. 게임을 클릭하면 자세한 정보를 볼 수 있습니다.",
+    "rating": "평점",
+    "genres": "장르",
+    "screenshots": "스크린샷",
+    "backToRankings": "← 랭킹으로 돌아가기",
+    "streams": "{count}개 스트림",
+    "gameNotFound": "게임을 찾을 수 없습니다.",
+    "about": "이 게임에 대하여"
+  },
+  "footer": {
+    "poweredBy": "게임 데이터 제공:"
+  },
+  "notFound": {
+    "title": "게임 오버",
+    "message": "이 페이지는 존재하지 않습니다 — 레벨 선택에 실패했습니다.",
+    "back": "랭킹으로 돌아가기"
+  }
+}

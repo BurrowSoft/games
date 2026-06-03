@@ -2,7 +2,14 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Sarabun } from "next/font/google";
+import {
+  Sarabun,
+  Noto_Sans_JP,
+  Noto_Sans_SC,
+  Noto_Sans_TC,
+  Noto_Sans_KR,
+  Noto_Sans_Arabic,
+} from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { Analytics } from "@vercel/analytics/next";
@@ -11,11 +18,23 @@ import { LanguageSelector, RegionalFloatingAd } from "@burrowsoft/shared";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
-const sarabun = Sarabun({
-  subsets: ["thai", "latin"],
-  weight: ["400", "600", "700"],
-  display: "swap",
-});
+const sarabun = Sarabun({ subsets: ["thai", "latin"], weight: ["400", "600", "700"], variable: "--font-sarabun", display: "swap" });
+const notoJP   = Noto_Sans_JP({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-noto-jp", display: "swap" });
+const notoSC   = Noto_Sans_SC({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-noto-sc", display: "swap" });
+const notoTC   = Noto_Sans_TC({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-noto-tc", display: "swap" });
+const notoKR   = Noto_Sans_KR({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-noto-kr", display: "swap" });
+const notoAR   = Noto_Sans_Arabic({ subsets: ["arabic"], weight: ["400", "700"], variable: "--font-noto-ar", display: "swap" });
+
+const SCRIPT_FONT: Record<string, string> = {
+  th: sarabun.variable,
+  ja: notoJP.variable,
+  zh: notoSC.variable,
+  "zh-TW": notoTC.variable,
+  ko: notoKR.variable,
+  ar: notoAR.variable,
+};
+
+const ALL_LOCALES = ["en","th","es","ru","pt-BR","fr","ja","zh","zh-TW","ar","de","id","ko","it","vi"] as const;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -75,8 +94,10 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const messages = await getMessages();
   const t = await getTranslations("footer");
 
+  const fontClass = SCRIPT_FONT[locale] ?? sarabun.variable;
+
   return (
-    <html lang={locale} className={sarabun.className}>
+    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} className={fontClass}>
       <head>
         {process.env.NEXT_PUBLIC_ADSENSE_ID && (
           <script
@@ -106,7 +127,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
               </div>
 
               <LanguageSelector
-                locales={["en", "th"]}
+                locales={[...ALL_LOCALES]}
                 className="border-white/10 bg-gray-900 text-gray-300 shadow-none focus:ring-emerald-500/40 focus:ring-offset-0"
               />
 

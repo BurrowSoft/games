@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "GamesMole",
+    "search": "Cerca giochi…",
+    "live": "In diretta"
+  },
+  "hero": {
+    "badge": "Classifiche in diretta · aggiornate ogni 5 minuti",
+    "title": "Cosa è <em>di tendenza</em> ora",
+    "subtitle": "Classifiche di giochi in diretta aggiornate ogni 5 minuti da Twitch"
+  },
+  "games": {
+    "viewers": "{count} spettatori",
+    "watchOnTwitch": "Guarda su Twitch",
+    "watchStream": "Guarda lo stream →",
+    "liveNow": "In diretta ora",
+    "loadingTitle": "Caricamento classifiche…",
+    "loading": "Caricamento dati {provider}…",
+    "unavailable": "{provider} non disponibile",
+    "igdbUnavailable": "Dettagli IGDB non disponibili — vengono mostrati solo i dati Twitch.",
+    "noResults": "Impossibile caricare le classifiche al momento. Riprova tra poco.",
+    "rankingsNote": "Classifiche basate sui dati degli spettatori in diretta di Twitch. Clicca su un gioco per vedere i dettagli.",
+    "rating": "Valutazione",
+    "genres": "Generi",
+    "screenshots": "Schermate",
+    "backToRankings": "← Torna alle classifiche",
+    "streams": "{count} stream",
+    "gameNotFound": "Gioco non trovato.",
+    "about": "Informazioni su questo gioco"
+  },
+  "footer": {
+    "poweredBy": "Dati di gioco forniti da"
+  },
+  "notFound": {
+    "title": "Game Over",
+    "message": "Questa pagina non esiste — selezione del livello fallita.",
+    "back": "Torna alle Classifiche"
+  }
+}

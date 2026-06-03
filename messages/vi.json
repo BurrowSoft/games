@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "GamesMole",
+    "search": "Tìm kiếm trò chơi…",
+    "live": "Trực tiếp"
+  },
+  "hero": {
+    "badge": "Bảng xếp hạng trực tiếp · cập nhật mỗi 5 phút",
+    "title": "Đang <em>nổi bật</em> lúc này",
+    "subtitle": "Bảng xếp hạng trò chơi trực tiếp cập nhật mỗi 5 phút từ Twitch"
+  },
+  "games": {
+    "viewers": "{count} người đang xem",
+    "watchOnTwitch": "Xem trên Twitch",
+    "watchStream": "Xem stream →",
+    "liveNow": "Đang phát trực tiếp",
+    "loadingTitle": "Đang tải bảng xếp hạng…",
+    "loading": "Đang tải dữ liệu {provider}…",
+    "unavailable": "{provider} không khả dụng",
+    "igdbUnavailable": "Chi tiết IGDB không khả dụng — chỉ hiển thị dữ liệu Twitch.",
+    "noResults": "Không thể tải bảng xếp hạng lúc này. Vui lòng thử lại sau.",
+    "rankingsNote": "Bảng xếp hạng dựa trên dữ liệu người xem trực tiếp của Twitch. Nhấp vào trò chơi bất kỳ để xem chi tiết.",
+    "rating": "Đánh giá",
+    "genres": "Thể loại",
+    "screenshots": "Ảnh chụp màn hình",
+    "backToRankings": "← Quay lại bảng xếp hạng",
+    "streams": "{count} luồng",
+    "gameNotFound": "Không tìm thấy trò chơi.",
+    "about": "Về trò chơi này"
+  },
+  "footer": {
+    "poweredBy": "Dữ liệu trò chơi được cung cấp bởi"
+  },
+  "notFound": {
+    "title": "Game Over",
+    "message": "Trang này không tồn tại — chọn màn chơi thất bại.",
+    "back": "Quay lại Bảng Xếp Hạng"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "GamesMole",
+    "search": "Cari game…",
+    "live": "Langsung"
+  },
+  "hero": {
+    "badge": "Peringkat langsung · diperbarui setiap 5 menit",
+    "title": "Yang sedang <em>populer</em> sekarang",
+    "subtitle": "Peringkat game langsung diperbarui setiap 5 menit dari Twitch"
+  },
+  "games": {
+    "viewers": "{count} menonton",
+    "watchOnTwitch": "Tonton di Twitch",
+    "watchStream": "Tonton stream →",
+    "liveNow": "Live sekarang",
+    "loadingTitle": "Memuat peringkat…",
+    "loading": "Memuat data {provider}…",
+    "unavailable": "{provider} tidak tersedia",
+    "igdbUnavailable": "Detail IGDB tidak tersedia — menampilkan data Twitch saja.",
+    "noResults": "Tidak dapat memuat peringkat game saat ini. Coba lagi sebentar lagi.",
+    "rankingsNote": "Peringkat berdasarkan data penonton langsung Twitch. Klik game mana saja untuk melihat detail.",
+    "rating": "Rating",
+    "genres": "Genre",
+    "screenshots": "Tangkapan layar",
+    "backToRankings": "← Kembali ke peringkat",
+    "streams": "{count} stream",
+    "gameNotFound": "Game tidak ditemukan.",
+    "about": "Tentang game ini"
+  },
+  "footer": {
+    "poweredBy": "Data game didukung oleh"
+  },
+  "notFound": {
+    "title": "Game Over",
+    "message": "Halaman ini tidak ada — pemilihan level gagal.",
+    "back": "Kembali ke Peringkat"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "GamesMole",
+    "search": "ゲームを検索…",
+    "live": "ライブ"
+  },
+  "hero": {
+    "badge": "ライブランキング · 5分ごとに更新",
+    "title": "今<em>人気</em>のゲーム",
+    "subtitle": "Twitchから5分ごとに更新されるライブゲームランキング"
+  },
+  "games": {
+    "viewers": "{count}人が視聴中",
+    "watchOnTwitch": "Twitchで視聴",
+    "watchStream": "ストリームを視聴 →",
+    "liveNow": "ライブ配信中",
+    "loadingTitle": "ランキングを読み込み中…",
+    "loading": "{provider}のデータを読み込み中…",
+    "unavailable": "{provider}は利用できません",
+    "igdbUnavailable": "IGDBの詳細を取得できません — Twitchのデータのみ表示しています。",
+    "noResults": "現在ランキングを読み込めません。しばらくしてからもう一度お試しください。",
+    "rankingsNote": "TwitchのライブViewerデータに基づいたランキングです。ゲームをクリックして詳細を確認。",
+    "rating": "評価",
+    "genres": "ジャンル",
+    "screenshots": "スクリーンショット",
+    "backToRankings": "← ランキングに戻る",
+    "streams": "{count}配信",
+    "gameNotFound": "ゲームが見つかりません。",
+    "about": "このゲームについて"
+  },
+  "footer": {
+    "poweredBy": "ゲームデータ提供："
+  },
+  "notFound": {
+    "title": "ゲームオーバー",
+    "message": "このページは存在しません — レベル選択に失敗しました。",
+    "back": "ランキングに戻る"
+  }
+}
