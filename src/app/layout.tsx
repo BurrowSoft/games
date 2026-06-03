@@ -46,6 +46,9 @@ export const metadata: Metadata = {
   keywords: ["top games", "trending games", "twitch games", "live gaming", "game rankings", "what to play"],
   authors: [{ name: SITE_NAME }],
   creator: SITE_NAME,
+  verification: {
+    google: "W09MRBByrmyuX52HfAkr_VzMDeMaOSX8sVJvimAtDqk",
+  },
   other: { "google-adsense-account": "ca-pub-1009857008755875" },
   openGraph: {
     type: "website",
