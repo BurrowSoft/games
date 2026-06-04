@@ -5,7 +5,10 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [{ protocol: "https", hostname: "static-cdn.jtvnw.net" }],
+    remotePatterns: [
+      { protocol: "https", hostname: "static-cdn.jtvnw.net" },
+      { protocol: "https", hostname: "images.igdb.com" },
+    ],
   },
   async headers() {
     return [
