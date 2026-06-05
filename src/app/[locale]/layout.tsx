@@ -155,7 +155,7 @@ export default async function LocaleLayout({
                 className="flex shrink-0 items-center gap-2.5"
               >
                 <Image
-                  src="/mascot.svg"
+                  src="/logo_no_text_dark.png"
                   alt={SITE_NAME}
                   width={36}
                   height={36}
@@ -190,7 +190,7 @@ export default async function LocaleLayout({
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-600 border-t border-white/5 pt-8">
                 <a href="https://burrowsoft.com" target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                  <Image src="/mascot.svg" alt="BurrowSoft" width={28} height={28} className="opacity-60" />
+                  <Image src="/logo_no_text_dark.png" alt="BurrowSoft" width={28} height={28} className="opacity-60" />
                   <span className="text-xs font-semibold text-gray-500">BurrowSoft</span>
                 </a>
                 <p className="text-xs">
