@@ -152,10 +152,17 @@ export default async function LocaleLayout({
             <nav className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3" aria-label="Main navigation">
               <Link
                 href="/"
-                className="flex shrink-0 items-center gap-2 text-xl font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
+                className="flex shrink-0 items-center gap-2.5"
               >
-                <span aria-hidden>🎮</span>
-                {SITE_NAME}
+                <Image
+                  src="/mascot.svg"
+                  alt={SITE_NAME}
+                  width={36}
+                  height={36}
+                  className="shrink-0"
+                  priority
+                />
+                <span className="text-lg font-bold tracking-tight text-emerald-400">{SITE_NAME}</span>
               </Link>
               <div className="flex-1">
                 <SearchBar />

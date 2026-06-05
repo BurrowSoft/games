@@ -1,56 +1,40 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
-export const runtime = "edge";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OGImage() {
+export default async function OGImage() {
+  const iconData = await readFile(join(process.cwd(), "public/icon-512.png"));
+  const iconSrc = `data:image/png;base64,${iconData.toString("base64")}`;
+
   return new ImageResponse(
-    <div
-      style={{
-        background: "#0d0d14",
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: "system-ui, sans-serif",
-      }}
-    >
-      <div style={{ fontSize: 96, lineHeight: 1 }}>🎮</div>
+    (
       <div
         style={{
-          marginTop: 24,
-          fontSize: 72,
-          fontWeight: 900,
-          background: "linear-gradient(90deg, #34d399, #6ee7b7)",
-          backgroundClip: "text",
-          color: "transparent",
-          letterSpacing: "-2px",
-        }}
-      >
-        GamesMole
-      </div>
-      <div style={{ marginTop: 16, fontSize: 28, color: "#9ca3af", textAlign: "center", maxWidth: 700 }}>
-        Live game rankings updated every 5 minutes from Twitch
-      </div>
-      <div
-        style={{
-          marginTop: 40,
           display: "flex",
           alignItems: "center",
-          gap: 8,
-          background: "rgba(16,185,129,0.1)",
-          border: "1px solid rgba(16,185,129,0.3)",
-          borderRadius: 999,
-          padding: "8px 20px",
+          justifyContent: "center",
+          gap: 40,
+          width: "100%",
+          height: "100%",
+          background: "linear-gradient(135deg, #064e3b 0%, #065f46 100%)",
+          fontFamily: "sans-serif",
         }}
       >
-        <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#ef4444" }} />
-        <span style={{ fontSize: 18, color: "#34d399", fontWeight: 600 }}>Live Now</span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={iconSrc} width={180} height={180} alt="" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <span style={{ fontSize: 64, fontWeight: 800, color: "#f8fafc" }}>
+            GamesMole
+          </span>
+          <span style={{ fontSize: 28, color: "#94a3b8" }}>
+            Clean Search. No Ads. No Sign-Up.
+          </span>
+        </div>
       </div>
-    </div>,
-    { width: 1200, height: 630 }
+    ),
+    { ...size }
   );
 }
