@@ -70,8 +70,8 @@ export async function generateMetadata({
   return {
     metadataBase: new URL(SITE_URL),
     title: {
-      default: `Online Games — GamesMole`,
-      template: `%s | GamesMole`,
+      default: `Online Games — Games Mole`,
+      template: `%s | Games Mole`,
     },
     description: "Play online browser games for free on GamesMole. No ads. No downloads. No account needed. Instant play, always free.",
     keywords: ["online games", "free browser games", "play games online", "no download games", "free games", "instant play games"],
@@ -84,13 +84,13 @@ export async function generateMetadata({
       locale: locale.replace("-", "_"),
       url: locale === "en" ? `${BASE}/` : `${BASE}/${locale}/`,
       siteName: SITE_NAME,
-      title: `Online Games — GamesMole`,
+      title: `Online Games — Games Mole`,
       description: "Play online browser games for free on GamesMole. No ads. No downloads. No account needed.",
       images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `Online Games — GamesMole`,
+      title: `Online Games — Games Mole`,
       description: "Play online browser games for free on GamesMole. No ads. No downloads. No account needed.",
       images: ["/opengraph-image"],
     },
