@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { GameCard } from "@/components/GameCard";
 import type { EnrichedGame } from "@/lib/types";
+import { SpinnerIcon } from "@burrowsoft/shared";
 
 interface ProviderStatus {
   label: string;
@@ -37,10 +38,7 @@ function LoadingOverlay({ providers, visible }: { providers: ProviderStatus[]; v
                     </svg>
                   )
                 ) : (
-                  <svg className="h-4 w-4 animate-spin text-gray-500" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
-                  </svg>
+                  <SpinnerIcon className="h-4 w-4 text-gray-500" />
                 )}
               </span>
               <span className={`text-sm ${p.done ? (p.error ? "text-yellow-400" : "text-gray-300") : "text-gray-500"}`}>

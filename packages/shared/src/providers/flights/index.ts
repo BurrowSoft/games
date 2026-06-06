@@ -1,30 +1,31 @@
 export { BookingComFlightProvider } from "./booking";
 export { SkyscannerFlightProvider } from "./skyscanner";
 export { KiwiFlightProvider } from "./kiwi";
+export { FlightScraperSkyProvider } from "./flightscrapersky";
 export type { FlightProvider } from "./types";
 
 import { ProviderRouter } from "../base";
+import { FlightScraperSkyProvider } from "./flightscrapersky";
 import { BookingComFlightProvider } from "./booking";
-import { SkyscannerFlightProvider } from "./skyscanner";
-import { KiwiFlightProvider } from "./kiwi";
 import type { FlightSearchParams, Flight } from "../../types";
+
+function cleanKey(raw: string | undefined): string | undefined {
+  const s = raw?.replace(/^﻿/, "").trim();
+  return s || undefined;
+}
 
 export function createFlightRouter(): ProviderRouter<FlightSearchParams, Flight> {
   const providers = [];
 
-  if (process.env.KIWI_API_KEY) {
-    providers.push(
-      new KiwiFlightProvider(
-        process.env.KIWI_API_KEY,
-        process.env.KIWI_AFFILIATE_ID
-      )
-    );
+  // Flights Scraper Sky (Skyscanner data via RAPIDAPI_KEY) — primary provider
+  const rapidKey = cleanKey(process.env.RAPIDAPI_KEY);
+  if (rapidKey) {
+    providers.push(new FlightScraperSkyProvider(rapidKey));
   }
-  if (process.env.SKYSCANNER_RAPIDAPI_KEY) {
-    providers.push(new SkyscannerFlightProvider(process.env.SKYSCANNER_RAPIDAPI_KEY));
-  }
-  if (process.env.RAPIDAPI_KEY) {
-    providers.push(new BookingComFlightProvider(process.env.RAPIDAPI_KEY));
+
+  // Booking.com flights as fallback
+  if (rapidKey) {
+    providers.push(new BookingComFlightProvider(rapidKey));
   }
 
   return new ProviderRouter(providers);
