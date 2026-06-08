@@ -122,13 +122,11 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} className={fontClass}>
       <head>
-        {process.env.NEXT_PUBLIC_ADSENSE_ID && (
-          <script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
-            crossOrigin="anonymous"
-          />
-        )}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1009857008755875"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className="min-h-screen bg-[#0d0d14] text-white antialiased">
         <script
